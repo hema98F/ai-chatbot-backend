@@ -91,7 +91,9 @@ app.post("/chat/:sessionId/message", async (req, res) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "anthropic/claude-3-haiku",
+          // model: "anthropic/claude-3-haiku",
+          // model: "openai/gpt-4o",
+          model: "openai/gpt-4o-mini",
           messages: [
             { role: "system", content: SYSTEM_PROMPT },
             // ...sessions[sessionId],
@@ -174,7 +176,9 @@ app.post("/ask", async (req, res) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "anthropic/claude-3-haiku",
+          // model: "anthropic/claude-3-haiku",
+          // model: "openai/gpt-4o",
+          model: "openai/gpt-4o-mini",
           messages: [
             {
               role: "system",
@@ -228,7 +232,7 @@ app.post("/chat/:sessionId/stream", async (req, res) => {
   res.setHeader("Content-Type", "text/event-stream");
   res.setHeader("Cache-Control", "no-cache");
   res.setHeader("Connection", "keep-alive");
-  res.setHeader("Access-Control-Allow-Origin", "*"); 
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.flushHeaders();
 
   try {
@@ -239,9 +243,13 @@ app.post("/chat/:sessionId/stream", async (req, res) => {
         headers: {
           Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
           "Content-Type": "application/json",
+          "HTTP-Referer": "https://ai-chatbot-backend-whdf.onrender.com",
+          "X-Title": "AI Mentor Chat",
         },
         body: JSON.stringify({
-          model: "anthropic/claude-3-haiku",
+          // model: "anthropic/claude-3-haiku",
+          // model: "openai/gpt-4o",
+          model: "openai/gpt-4o-mini",
           stream: true,
           messages: [
             { role: "system", content: SYSTEM_PROMPT },
@@ -302,4 +310,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
